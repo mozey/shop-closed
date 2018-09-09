@@ -5,34 +5,6 @@
     <title></title>
 </head>
 
-<!-- Include this in header.php............................................. -->
-<style>
-    /* The Modal (background) */
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
-
-    /* Modal Content/Box */
-    .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto; /* 15% from the top and centered */
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%; /* Could be more or less, depending on screen size */
-    }
-
-</style>
-<!-- ........................................................snip header.php -->
-
 <body>
 
 <div>links are click-able when the site is open</div>
@@ -41,7 +13,7 @@
 <a href="javascript:" onclick="myShop.clickLink('2')">link2</a>
 <br>
 <br>
-<button id="myBtn">Close Shop</button>
+<button onclick="window.myShop.closeShop()">Close Shop</button>
 
 <script>
     // myShop namespace
@@ -55,7 +27,7 @@
     // closeShop shows the shop closed modal,
     // reload the page to reset
     window.myShop.closeShop = function() {
-
+        window.myShop.close();
     }
 </script>
 
@@ -64,7 +36,7 @@
 
 <!-- Include this in footer.php............................................. -->
 <!-- The Modal -->
-<div id="myModal" class="modal">
+<div id="myModal" class="modal" style="display: none">
     <!-- Modal content -->
     <div class="modal-content">
         <p>Shop closed</p>
@@ -115,6 +87,25 @@
             }
             return false;
         };
+
+        // Set modal styles
+        $("#myModal").css({
+            "position": "fixed",
+            "z-index": "1", /* Sit on top */
+            "left": "0",
+            "top": "0",
+            "width": "100%", /* Full width */
+            "height": "100%", /* Full height */
+            "overflow": "auto", /* Enable scroll if needed */
+            "background-color": "rgba(0,0,0,0.4)", /* Black w/ opacity */
+        });
+        $("#myModal .modal-content").css({
+            "background-color": "#fefefe",
+            "margin": "15% auto", /* 15% from the top and centered */
+            "padding": "20px",
+            "border": "1px solid #888",
+            "width": "80%", /* Could be more or less, depending on screen size */
+        });
 
         // Check closing times
         if (window.myShop.isClosed()) {

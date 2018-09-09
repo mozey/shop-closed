@@ -1,4 +1,4 @@
-# closed
+# shop-closed
 
 See `example.html` for javascript to display a
 "shop closed" modal between certain times every day
@@ -10,5 +10,5 @@ The modal HTML, CSS and Javascript is based on
 [this example](https://www.w3schools.com/howto/howto_css_modals.asp)
 
 See comments in `example.html` for setup with WordPress.
-Copy snippets to `header.php` and `footer.php`
+Copy snippet `footer.php`
 
