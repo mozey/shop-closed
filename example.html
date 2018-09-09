@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<!-- Include this in header.php............................................. -->
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+</style>
+<!-- ........................................................snip header.php -->
+
+<body>
+
+<div>links are click-able when the site is open</div>
+<a href="javascript:" onclick="myShop.clickLink('1')">link1</a>
+<br>
+<a href="javascript:" onclick="myShop.clickLink('2')">link2</a>
+<br>
+<br>
+<button id="myBtn">Close Shop</button>
+
+<script>
+    // myShop namespace
+    window.myShop = {};
+
+    // clickLink is called when a link is clicked, see onclick
+    window.myShop.clickLink = function(msg) {
+        alert("you clicked link " + msg)
+    };
+
+    // closeShop shows the shop closed modal,
+    // reload the page to reset
+    window.myShop.closeShop = function() {
+
+    }
+</script>
+
+<!-- Assuming jQuery will be available -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+<!-- Include this in footer.php............................................. -->
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <p>Shop closed</p>
+    </div>
+</div>
+
+<script>
+    load = function() {
+        window.myShop = window.myShop || {};
+
+        // Closing time UTC
+        window.myShop.closed = [
+            {"from": -1, "to": 9},
+            {"from": 12, "to": 14},
+            {"from": 17, "to": -1}
+        ];
+
+        window.myShop.close = function() {
+            document.getElementById('myModal').style.display = "block";
+        };
+
+        window.myShop.isClosed = function() {
+            var d = new Date();
+            var n = d.getUTCHours();
+            console.info("n", n);
+            for (var i = 0; i < window.myShop.closed.length; i++) {
+                const interval = window.myShop.closed[i];
+                var from = interval["from"];
+                console.info("from", from, from === -1);
+                var to = interval["to"];
+                console.info("to", to);
+                if (from === -1) {
+                    if (n < to) {
+                        console.info("shop closed: after to");
+                        return true;
+                    }
+                }
+                if (to === -1) {
+                    if (n > from) {
+                        console.info("shop closed: before from");
+                        return true;
+                    }
+                }
+                if (n >= from && n <= to) {
+                    console.info("shop closed: inside range");
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        // Check closing times
+        if (window.myShop.isClosed()) {
+            window.myShop.close();
+        }
+    };
+
+    // Use jQuery to load when the page is ready
+    $(load)
+</script>
+<!-- ........................................................snip footer.php -->
+
+</body>
+</html>
+
