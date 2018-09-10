@@ -73,12 +73,14 @@
                         console.info("shop closed: after to");
                         return true;
                     }
+                    break;
                 }
                 if (to === -1) {
                     if (n > from) {
                         console.info("shop closed: before from");
                         return true;
                     }
+                    break;
                 }
                 if (n >= from && n <= to) {
                     console.info("shop closed: inside range");
