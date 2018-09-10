@@ -91,7 +91,7 @@
         // Set modal styles
         $("#myModal").css({
             "position": "fixed",
-            "z-index": "1", /* Sit on top */
+            "z-index": "999999999", /* Sit on top */
             "left": "0",
             "top": "0",
             "width": "100%", /* Full width */
@@ -114,6 +114,7 @@
     };
 
     // Use jQuery to load when the page is ready
+    $ = $ || jQuery;
     $(load)
 </script>
 <!-- ........................................................snip footer.php -->
